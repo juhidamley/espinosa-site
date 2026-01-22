@@ -5,10 +5,10 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="text-center md:text-left">
             <p className="font-heading text-xl font-semibold mb-1">
-              Dr. Marcus Whitfield
+              Dr. Gastón Espinosa
             </p>
             <p className="text-primary-foreground/70 font-body text-sm">
-              Professor of Religious Studies · Hartwell University
+              Arthur V. Stoughton Professor of Religious Studies · Claremont McKenna College
             </p>
           </div>
           <div className="flex items-center gap-6">
@@ -34,7 +34,7 @@ const Footer = () => {
         </div>
         <div className="mt-8 pt-8 border-t border-primary-foreground/20 text-center">
           <p className="text-primary-foreground/60 font-body text-sm">
-            © {new Date().getFullYear()} Dr. Marcus Whitfield. All rights reserved.
+            © {new Date().getFullYear()} Dr. Gastón Espinosa. All rights reserved.
           </p>
         </div>
       </div>

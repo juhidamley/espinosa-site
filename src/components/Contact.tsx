@@ -1,6 +1,28 @@
 import { Mail, MapPin, Clock } from "lucide-react";
+import { useState, FormEvent } from "react";
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: ""
+  });
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const { name, email, subject, message } = formData;
+    const mailtoLink = `mailto:427r33@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(`From: ${name}\nEmail: ${email}\n\n${message}`)}`;
+    window.location.href = mailtoLink;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.id]: e.target.value
+    });
+  };
+
   return (
     <section id="contact" className="py-24 bg-background">
       <div className="section-container">
@@ -25,10 +47,10 @@ const Contact = () => {
                     Email
                   </h3>
                   <a
-                    href="mailto:m.whitfield@hartwell.edu"
+                    href="mailto:427r33@gmail.com"
                     className="text-body font-body hover:text-primary transition-colors"
                   >
-                    m.whitfield@hartwell.edu
+                    427r33@gmail.com
                   </a>
                 </div>
               </div>
@@ -39,14 +61,18 @@ const Contact = () => {
                 </div>
                 <div>
                   <h3 className="font-heading text-lg font-semibold text-display mb-1">
-                    Office
+                    Contact
                   </h3>
                   <p className="text-body font-body">
-                    Harrison Hall, Room 412
+                    Gastón Espinosa
                     <br />
-                    Department of Religious Studies
+                    Claremont McKenna College
                     <br />
-                    Hartwell University
+                    Kravis Center
+                    <br />
+                    888 Columbia Avenue
+                    <br />
+                    Claremont, CA 91711
                   </p>
                 </div>
               </div>
@@ -75,7 +101,7 @@ const Contact = () => {
             <h3 className="font-heading text-2xl font-semibold text-display mb-6">
               Send a Message
             </h3>
-            <form className="space-y-6">
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
                 <label
                   htmlFor="name"
@@ -86,6 +112,9 @@ const Contact = () => {
                 <input
                   type="text"
                   id="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
                   className="w-full px-4 py-3 bg-background border border-border rounded-sm font-body text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   placeholder="Your name"
                 />
@@ -100,6 +129,9 @@ const Contact = () => {
                 <input
                   type="email"
                   id="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
                   className="w-full px-4 py-3 bg-background border border-border rounded-sm font-body text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   placeholder="your@email.com"
                 />
@@ -114,6 +146,9 @@ const Contact = () => {
                 <input
                   type="text"
                   id="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
                   className="w-full px-4 py-3 bg-background border border-border rounded-sm font-body text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors"
                   placeholder="Inquiry about..."
                 />
@@ -128,6 +163,9 @@ const Contact = () => {
                 <textarea
                   id="message"
                   rows={4}
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
                   className="w-full px-4 py-3 bg-background border border-border rounded-sm font-body text-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-colors resize-none"
                   placeholder="Your message..."
                 />

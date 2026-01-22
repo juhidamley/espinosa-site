@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -11,12 +13,7 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const isActive = (path: string) => location.pathname === path;
 
   return (
     <header
@@ -27,28 +24,36 @@ const Header = () => {
       }`}
     >
       <nav className="section-container py-4 flex items-center justify-between">
-        <button
-          onClick={() => scrollToSection("hero")}
+        <Link
+          to="/"
           className="font-heading text-xl font-semibold text-display hover:text-primary transition-colors"
         >
-          Dr. Marcus Whitfield
-        </button>
+          Dr. Gastón Espinosa
+        </Link>
         <ul className="hidden md:flex items-center gap-8 font-body text-sm">
           {[
-            { label: "About", id: "about" },
-            { label: "Research", id: "research" },
-            { label: "Publications", id: "publications" },
-            { label: "Courses", id: "courses" },
-            { label: "Contact", id: "contact" },
+            { label: "About", path: "/about" },
+            { label: "Research", path: "/research" },
+            { label: "Publications", path: "/publications" },
+            { label: "Courses", path: "/courses" },
+            { label: "Contact", path: "/contact" },
           ].map((item) => (
-            <li key={item.id}>
-              <button
-                onClick={() => scrollToSection(item.id)}
-                className="text-body hover:text-primary transition-colors relative group"
+            <li key={item.path}>
+              <Link
+                to={item.path}
+                className={`transition-colors relative group ${
+                  isActive(item.path)
+                    ? "text-primary"
+                    : "text-body hover:text-primary"
+                }`}
               >
                 {item.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all duration-300 group-hover:w-full" />
-              </button>
+                <span
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-primary transition-all duration-300 ${
+                    isActive(item.path) ? "w-full" : "w-0 group-hover:w-full"
+                  }`}
+                />
+              </Link>
             </li>
           ))}
         </ul>

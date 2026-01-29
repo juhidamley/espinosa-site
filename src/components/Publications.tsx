@@ -57,8 +57,10 @@ const Publications = () => {
             </p>
           </div>
           <a
-            href="#"
-            className="mt-4 md:mt-0 inline-flex items-center gap-2 text-primary font-body text-sm hover:underline"
+            href="https://www.cmc.edu/sites/default/files/2026-01/Espinosa%20CV%20-%20Academic%20-%201.12.25.pdf"
+            className="mt-4 md:mt-0 inline-flex items-center gap-2 text-primary font-body text-sm hover:underline "
+            target="_blank"
+            rel="noopener noreferrer"
           >
             View Full CV
             <ExternalLink className="w-4 h-4" />

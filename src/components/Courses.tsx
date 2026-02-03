@@ -340,7 +340,7 @@ const Courses = () => {
       <div className="section-container">
         <div className="text-center mb-16">
           <h2 className="font-heading text-4xl md:text-5xl font-semibold text-display mb-4">
-            Current Courses
+            Courses Offered
           </h2>
           <p className="text-body font-body max-w-2xl mx-auto">
             Prof. Espinosa offers a variety of courses in religious studies that touch upon a variety of fields and fulfill a variety of academic requirements. Use the filters below to explore the courses most relevant to your interests and academic needs.

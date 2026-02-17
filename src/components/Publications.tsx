@@ -8,7 +8,7 @@ const books = [
     year: "2008",
     publisher: "Bloomsbury USA",
     isbn: "9780742563216",
-    coverImage: "public/bookCovers/rrap.jpg",
+    coverImage: "/bookCovers/rrap.jpg",
     description: "The role that race and religion play in American presidential elections is attracting national attention like never before. The 2008 presidential candidates reached out to an unprecedented number of racial and religious voting constituencies, including African Americans, Latinos, Muslims, Mainline Protestants, Evangelicals, Catholics, Jews, women, the non-religious, and more. Drawing upon survey data, interviews, and case studies, this book examines the complicated relationships between recent American presidents and key racial and religious groups. The paperback edition features a new capstone chapter on the 2008 elections.",
     purchaseLinks: [
       { label: "Amazon", url: "https://www.amazon.com/Religion-American-Presidency-Gaston-Espinosa/dp/0742563219" },
@@ -24,7 +24,7 @@ const books = [
     year: "2014",
     publisher: "Harvard University Press",
     isbn: "9780674970915",
-    coverImage: "public/bookCovers/lpa.jpeg",
+    coverImage: "/bookCovers/lpa.jpeg",
     description: "Every year an estimated 600,000 U.S. Latinos convert from Catholicism to Protestantism. Today, 12.5 million Latinos self-identify as Protestant—a population larger than all U.S. Jews and Muslims combined. Spearheading this spiritual transformation is the Pentecostal movement and Assemblies of God, which is the destination for one out of four converts. In a deeply researched social and cultural history, Gastón Espinosa uncovers the roots of this remarkable turn and the Latino AG’s growing leadership nationwide.",
     purchaseLinks: [
       { label: "Amazon", url: "https://www.amazon.com/Latino-Pentecostals-America-Politics-Action/dp/0674728874" },
@@ -39,7 +39,7 @@ const books = [
     year: "2014",
     publisher: "Duke University Press",
     isbn: "978-0-8223-5635-6",
-    coverImage: "public/bookCovers/wjs.webp",
+    coverImage: "/bookCovers/wjs.webp",
     description: "In 1906, William J. Seymour (1870–1922) preached Pentecostal revival at the Azusa Street mission in Los Angeles. From these and other humble origins the movement has blossomed to 631 million people around the world. Gastón Espinosa provides new insight into the life and ministry of Seymour, the Azusa Street revival, and Seymour's influence on global Pentecostal origins. After defining key terms and concepts, he surveys the changing interpretations of Seymour over the past 100 years, critically engages them in a biography, and then provides an unparalleled collection of primary sources, all in a single volume. He pays particular attention to race relations, Seymour's paradigmatic global influence from 1906 to 1912, and the break between Seymour and Charles Parham, another founder of Pentecostalism. Espinosa's fragmentation thesis argues that the Pentecostal propensity to invoke direct unmediated experiences with the Holy Spirit empowers ordinary people to break the bottle of denominationalism and to rapidly indigenize and spread their message.",
     purchaseLinks: [
       { label: "Amazon", url: "https://www.amazon.com/William-Seymour-Origins-Global-Pentecostalism/dp/082235635X" },
@@ -54,7 +54,7 @@ const books = [
     year: "2023",
     publisher: "Oxford University Press",
     isbn: "9780190058906",
-    coverImage: "public/bookCovers/pos.jpg",
+    coverImage: "/bookCovers/pos.jpg",
     description: "Protestants on Screen explores the Protestant contributions to American and European film over the past hundred years, focusing on the post-1960 period. It analyzes how Protestant filmmakers, beliefs, theology, symbols, sensibilities, and cultural patterns have shaped film. This book argues that Protestants helped birth and shape the film industry and harness the power of motion pictures for spiritual instruction, edification, and cultural influence. Despite the rapid secularization of the film industry, Protestants influenced U.S. filmmaking in three distinct ways since the 1920s. It tracks key Protestant themes like faith and doubt, sin and depravity, biblical literalism, personal conversion and redemption, holiness and sanctification, moralism and pietism, Providence and secularism, apocalypticism, righteousness and justice, religion and race, and the priesthood of all believers and its offshoots, democratization and individualism. The book problematizes the stereotype of Protestants as world-denouncing and -defying puritans and iconoclasts who stood in the way of film’s maturation as an art. The authors contend that Protestants were instead among the key catalysts in the origins and development of film and contribute to this day an identifiable aesthetic impulse manifest in themes like reform, embodiment of the biblical Word, a reenchantment of the mundane, and the interplay of the literal and the symbolic.",
     purchaseLinks: [
       { label: "Amazon", url: "https://www.amazon.com/dp/0190058900?tag=oxacglobal-20" },
@@ -68,7 +68,7 @@ const books = [
     year: "2013",
     publisher: "Routledge",
     isbn: "9780415633772",
-    coverImage: "public/bookCovers/rrbo.jpg",
+    coverImage: "/bookCovers/rrbo.jpg",
     description: "Contrary to popular claims, religion played a critical role in Barack Obama's 2008 election as president of the United States. Religion, race, and gender entered the national and electoral dialogue in an unprecedented manner. What stood out most in the 2008 presidential campaign was not that Republicans reached out to religious voters but that Democrats did―and with a vengeance. This tightly edited volume demonstrates how Obama charted a new course for Democrats by staking out claims among moderate-conservative faith communities and emerged victorious in the presidential contest, in part, by promoting a new Democratic racial-ethnic and religious pluralism.",
     purchaseLinks: [
       { label: "Amazon", url: "https://www.amazon.com/-/he/Gast%C3%B3n-Espinosa/dp/0415633761" },
@@ -83,7 +83,7 @@ const books = [
     year: "",
     publisher: "",
     isbn: "",
-    coverImage: "public/bookCovers/",
+    coverImage: "/bookCovers/",
     description: "",
     purchaseLinks: [
       { label: "Amazon", url: "" },

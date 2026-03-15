@@ -6,7 +6,6 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  // The 'base' property has been removed so Vercel can find your files at the root
   server: {
     host: "::",
     port: 8080,

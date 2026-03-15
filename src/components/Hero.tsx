@@ -26,11 +26,19 @@ const Hero = () => {
           <p className="text-caption font-body text-sm md:text-base tracking-widest uppercase mb-4 text-white/90 animate-fade-in-up">
             Arthur V. Stoughton Professor of Religious Studies
           </p>
-          <h1 className="font-heading text-5xl sm:text-6xl md:text-8xl lg:text-[8rem] font-semibold leading-none mb-6 text-white animate-fade-in-up">
+            <h1
+            className="text-5xl sm:text-6xl md:text-8xl lg:text-[8rem] font-thin leading-none mb-6 text-white animate-fade-in-up"
+            style={{ fontFamily: "Times New Roman, Times, serif" }}
+            >
             Dr. Gastón
             <br />
-            <span className="text-primary drop-shadow-md">Espinosa</span>
-          </h1>
+            <span
+              className="text-primary drop-shadow-md"
+              style={{ fontFamily: "Times New Roman, Times, serif" }}
+            >
+              Espinosa
+            </span>
+            </h1>
           <div className="flex flex-wrap gap-4 mt-8 animate-fade-in-delay-1">
             <Link
               to="/research"

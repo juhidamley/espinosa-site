@@ -1,3 +1,4 @@
+// src/components/Header.tsx
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -14,6 +15,9 @@ const Header = () => {
   }, []);
 
   const isActive = (path: string) => location.pathname === path;
+  
+  // Check if we are on the home page and haven't scrolled down yet
+  const isTransparentOnHome = location.pathname === "/" && !scrolled;
 
   return (
     <header
@@ -26,7 +30,9 @@ const Header = () => {
       <nav className="section-container py-4 flex items-center justify-between">
         <Link
           to="/"
-          className="font-heading text-xl font-semibold text-display hover:text-primary transition-colors"
+          className={`font-heading text-xl font-semibold transition-colors hover:text-primary ${
+            isTransparentOnHome ? "text-white" : "text-display"
+          }`}
         >
           Dr. Gastón Espinosa
         </Link>
@@ -44,6 +50,8 @@ const Header = () => {
                 className={`transition-colors relative group ${
                   isActive(item.path)
                     ? "text-primary"
+                    : isTransparentOnHome
+                    ? "text-white hover:text-primary"
                     : "text-body hover:text-primary"
                 }`}
               >

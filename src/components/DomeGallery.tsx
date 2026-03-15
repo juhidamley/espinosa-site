@@ -1,5 +1,5 @@
 // src/components/DomeGallery.tsx
-import { useEffect, useMemo, useRef, useCallback } from 'react';
+import { useEffect, useState, useMemo, useRef, useCallback } from 'react';
 import { useGesture } from '@use-gesture/react';
 
 type ImageItem = string | { src: string; alt?: string; subtitle?: string };
@@ -40,8 +40,6 @@ type ItemDef = {
 // ==========================================
 // 1. CUSTOM SUBTITLE DICTIONARY
 // ==========================================
-// Type the exact file name (without the .jpg/.png extension) on the left,
-// and your custom subtitle on the right.
 const CUSTOM_SUBTITLES: Record<string, string> = {
   'pic1': 'RLST 184 - Spring 2016 with Jeremy, Michaiah, Dr E., Kevin, Lora, and Leah',
   'pic2': 'Alex, Dr. E, Blake, and Jake',
@@ -69,7 +67,7 @@ const CUSTOM_SUBTITLES: Record<string, string> = {
   'pic25': '',
   'pic26': 'Prof. Espinosa',
   'pic27': 'Prof. Espinosa',
-  'pi28': 'Claremont Colleges thank Father Joe',
+  'pic28': 'Claremont Colleges thank Father Joe',
   'pic29': 'Prof. Espinosa with family',
   'Ukraine Fair photo': 'Ukraine Fair',
   'Ukraine Fair team 2': 'Ukraine Fair team',
@@ -87,12 +85,7 @@ const imageModules = import.meta.glob('../assets/homepage/*.{png,jpg,jpeg,webp,P
 // Map the imported files and apply the custom subtitles
 const DEFAULT_IMAGES: ImageItem[] = Object.keys(imageModules).map((path) => {
   const mod = imageModules[path] as { default: string };
-  
-  // Extract just the file name without the extension
   const fileName = path.split('/').pop()?.split('.')[0] || 'Gallery Image';
-  
-  // Check our dictionary above! If a match exists, use it. 
-  // If not, clean up the file name as a fallback.
   const customSubtitle = CUSTOM_SUBTITLES[fileName] || fileName.replace(/[-_]/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
 
   return {
@@ -102,7 +95,6 @@ const DEFAULT_IMAGES: ImageItem[] = Object.keys(imageModules).map((path) => {
   };
 });
 
-// Fallback just in case the folder is completely empty
 if (DEFAULT_IMAGES.length === 0) {
   console.warn("No images were found in that folder! Check your import.meta.glob path.");
   DEFAULT_IMAGES.push({ src: 'https://placehold.co/600x400?text=No+Images+Found', alt: 'Placeholder', subtitle: 'Path Error' });
@@ -201,6 +193,29 @@ export default function DomeGallery({
   autoRotateSpeed = 0.05,
   enlargePosition = 'center'
 }: DomeGalleryProps) {
+  
+  // --- LOADING STATE ---
+  const [isReady, setIsReady] = useState(false);
+  const [dots, setDots] = useState('');
+
+  // Animate the dots (. .. ...)
+  useEffect(() => {
+    if (isReady) return;
+    const interval = setInterval(() => {
+      setDots((prev) => (prev.length >= 3 ? '' : prev + '.'));
+    }, 400);
+    return () => clearInterval(interval);
+  }, [isReady]);
+
+  // Give the gallery exactly 2.5 seconds to construct itself and load images behind the scenes
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsReady(true);
+    }, 2500);
+    return () => clearTimeout(timer);
+  }, []);
+  // ---------------------
+
   const rootRef = useRef<HTMLDivElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
   const sphereRef = useRef<HTMLDivElement>(null);
@@ -547,7 +562,6 @@ export default function DomeGallery({
 
       const animatingOverlay = document.createElement('div');
       animatingOverlay.className = 'enlarge-closing';
-      // Added overflow: visible so the text beneath doesn't clip off when closing
       animatingOverlay.style.cssText = `
         position: absolute;
         left: ${overlayRelativeToRoot.left}px;
@@ -565,11 +579,10 @@ export default function DomeGallery({
 
       animatingOverlay.innerHTML = overlay.innerHTML;
       const clonedImg = animatingOverlay.querySelector('img');
-      // Applied object-fit: contain to closing animation
       if (clonedImg) clonedImg.style.cssText = `width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5)) ${grayscale ? 'grayscale(1)' : 'none'};`;
       
       const clonedSubDiv = animatingOverlay.querySelector('div');
-      if (clonedSubDiv) clonedSubDiv.style.opacity = '0'; // fade text out smoothly
+      if (clonedSubDiv) clonedSubDiv.style.opacity = '0'; 
 
       overlay.remove();
       rootRef.current!.appendChild(animatingOverlay);
@@ -687,7 +700,6 @@ export default function DomeGallery({
     (el.style as any).zIndex = 0;
     const overlay = document.createElement('div');
     overlay.className = 'enlarge';
-    // Removed strict overflow and box-shadow to allow natural uncropped behavior
     overlay.style.cssText = `position:absolute; left:${frameR.left - mainR.left}px; top:${frameR.top - mainR.top}px; width:${frameR.width}px; height:${frameR.height}px; opacity:0; z-index:30; will-change:transform,opacity; transform-origin:top left; transition:transform ${enlargeTransitionMs}ms ease, opacity ${enlargeTransitionMs}ms ease; border-radius:${openedImageBorderRadius}; overflow:visible;`;
     
     const rawSrc = parent.dataset.src || (el.querySelector('img') as HTMLImageElement)?.src || '';
@@ -697,13 +709,11 @@ export default function DomeGallery({
     const img = document.createElement('img');
     img.src = rawSrc;
     img.alt = rawAlt;
-    // Updated to object-fit: contain so the image is never cropped!
     img.style.cssText = `width:100%; height:100%; object-fit:contain; filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5)) ${grayscale ? 'grayscale(1)' : 'none'};`;
     overlay.appendChild(img);
 
     if (rawSubtitle) {
       const subDiv = document.createElement('div');
-      // Placed the subtitle directly beneath the viewer frame
       subDiv.className = 'absolute top-full mt-6 left-0 w-full text-white text-center font-heading text-2xl md:text-3xl opacity-0 transition-opacity pointer-events-none drop-shadow-lg';
       subDiv.style.transitionDuration = `${enlargeTransitionMs}ms`;
       subDiv.innerText = rawSubtitle;
@@ -874,6 +884,21 @@ export default function DomeGallery({
           } as React.CSSProperties
         }
       >
+        
+        {/* ========================================== */}
+        {/* LOADING SCREEN OVERLAY */}
+        {/* ========================================== */}
+        <div
+          className={`absolute inset-0 z-50 flex items-center justify-center lg:justify-end lg:pr-[15vw] bg-[#060010] transition-opacity duration-1000 ease-in-out ${
+            isReady ? 'opacity-0 pointer-events-none' : 'opacity-100'
+          }`}
+        >
+          <div className="text-white/70 font-body text-xl md:text-2xl tracking-wide flex items-center min-w-[280px]">
+            Photo Gallery is loading
+            <span className="inline-block w-8 text-left">{dots}</span>
+          </div>
+        </div>
+
         <main
           ref={mainRef}
           className="absolute inset-0 grid place-items-center overflow-hidden select-none bg-transparent"

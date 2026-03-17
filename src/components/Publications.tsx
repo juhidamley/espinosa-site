@@ -154,7 +154,18 @@ const books = [
   },
 ];
 
-const otherPublications = [
+type PublicationEntry = {
+  type: string;
+  year: string;
+  title: string;
+  publisher: string;
+  description: string;
+  link?: string;
+  "book-title"?: string;
+  author?: string;
+};
+
+const otherPublications: PublicationEntry[] = [
   {
     type: "Journal Article",
     year: "2023",
@@ -336,12 +347,214 @@ const otherPublications = [
     link: "https://doi.org/10.1093/jaarel/67.3.597",
   },
   {
-    type: "",
-    year: "",
-    title: "",
-    publisher: "",
-    description: "",
-    link: "",
+    type: "Book Chapter",
+    year: "2024",
+    title: "Protestant Christianity: Modern [in the Caribbean]",
+    "book-title": "The Oxford Handbook of Caribbean Religions",
+    author: "Michelle Gonzalez, ed.",
+    publisher: "Oxford University Press",
+    description: "The Oxford Handbook of Caribbean Religions offers a comprehensive overview of Caribbean religions, one that respects the diversity of the religious traditions and the national particularity of the region. Focusing on multiple geographic settings, this volume addresses the prominent religious traditions in the Caribbean by examining a cross-section of themes that impact the region and the academic study of Caribbean religion.",
+    link: "https://global.oup.com/academic/product/the-oxford-handbook-of-caribbean-religions-9780190916961",
+  },
+  {
+    type: "Book Chapter",
+    year: "2023",
+    title: "The Vexed Man: Oliver Cromwell and the English Reformation and Civil War on Screen",
+    publisher: "Oxford University Press, 2023",
+    description: "Protestants on Screen explores the Protestant contributions to American and European film over the past hundred years, focusing on the post-1960 period. It analyzes how Protestant filmmakers, beliefs, theology, symbols, sensibilities, and cultural patterns have shaped film. ",
+    link: "https://academic.oup.com/book/49426",
+    "book-title": "Protestants on Screen: Religion, Politics, and Aesthetics in European and American Movies",
+    author: "Gastón Espinosa, Erik Redling, and Jason Stevens, eds.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2023",
+    title: "'Holy Ghost Power' in Robert Duvall's The Apostle",
+    publisher: "Oxford University Press, 2023",
+    description: "Protestants on Screen explores the Protestant contributions to American and European film over the past hundred years, focusing on the post-1960 period. It analyzes how Protestant filmmakers, beliefs, theology, symbols, sensibilities, and cultural patterns have shaped film. ",
+    link: "https://academic.oup.com/book/49426",
+    "book-title": "Protestants on Screen: Religion, Politics, and Aesthetics in European and American Movies",
+    author: "Gastón Espinosa, Erik Redling, and Jason Stevens, eds.",
+  },
+   {
+    type: "Major Introduction",
+    year: "2023",
+    title: "Introduction to Protestants and Film",
+    publisher: "Oxford University Press, 2023",
+    description: "Protestants on Screen explores the Protestant contributions to American and European film over the past hundred years, focusing on the post-1960 period. It analyzes how Protestant filmmakers, beliefs, theology, symbols, sensibilities, and cultural patterns have shaped film. ",
+    link: "https://academic.oup.com/book/49426",
+    "book-title": "Protestants on Screen: Religion, Politics, and Aesthetics in European and American Movies",
+    author: "Gastón Espinosa, Erik Redling, and Jason Stevens, eds.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2020",
+    title: "History of Pentecostal Religions in Puerto Rico",
+    publisher: "Oxford University Press",
+    description: "TODO",
+    link: "TODO",
+    "book-title": "Oxford Handbook on Religions on Caribbean Religions TODO",
+    author: "TODO",
+  },
+  {
+    type: "Book Chapter",
+    year: "2017",
+    title: "Let the Spirit Fly:” Marilynn Kramar and the History of the Latino Catholic Charismatic Movement in the U.S.-Mexico Borderlands",
+    publisher: "Wipf and Stock Publishers",
+    description: "At the turn of the 20th century, the California dream was a suburban ideal where life on the farm was exceptional. Agrarian virtue existed alongside good roads, social clubs, cultural institutions, and business commerce. The California suburban dream was the ultimate symbol of progress and modernity. This book analyzes the growth, promotion, and agricultural colonization that fed this dream during the early 1900s.",
+    link: "https://wvupressonline.com/node/535",
+    "book-title": "California Dreaming: Society and Culture in the Golden State",
+    author: "Ronald Wells, ed.",
+  },
+  {
+    type: "Major Introduction",
+    year: "2012",
+    title: "Religion, Politics, and American Society",
+    publisher: "Routledge Publishers",
+    description: "This book demonstrates how Barack Obama charted a new course for Democrats by staking out claims among moderate-conservative faith communities and emerged victorious in the presidential contest, in part by promoting a new Democratic racial-ethnic and religious pluralism.",
+    link: "https://www.routledge.com/Religion-Race-and-Barack-Obamas-New-Democratic-Pluralism/Espinosa/p/book/9780415633772",
+    "book-title": "Religion, Race, and Barack Obama's New Democratic Pluralism",
+    author: "Gastón Espinosa, ed.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2012",
+    title: "Latinos, Religion, and the 2008 Election",
+    publisher: "Routledge Publishers",
+    description: "This book demonstrates how Barack Obama charted a new course for Democrats by staking out claims among moderate-conservative faith communities and emerged victorious in the presidential contest, in part by promoting a new Democratic racial-ethnic and religious pluralism.",
+    link: "https://www.routledge.com/Religion-Race-and-Barack-Obamas-New-Democratic-Pluralism/Espinosa/p/book/9780415633772",
+    "book-title": "Religion, Race, and Barack Obama's New Democratic Pluralism",
+    author: "Gastón Espinosa, ed.",
+  },
+  {
+    type: "Major Conclusion",
+    year: "2012",
+    title: "Conclusion",
+    publisher: "Routledge Publishers",
+    description: "This book demonstrates how Barack Obama charted a new course for Democrats by staking out claims among moderate-conservative faith communities and emerged victorious in the presidential contest, in part by promoting a new Democratic racial-ethnic and religious pluralism.",
+    link: "https://www.routledge.com/Religion-Race-and-Barack-Obamas-New-Democratic-Pluralism/Espinosa/p/book/9780415633772",
+    "book-title": "Religion, Race, and Barack Obama's New Democratic Pluralism",
+    author: "Gastón Espinosa, ed.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2011",
+    title: "'Salvation and Transformation': Latino Evangelical Political Activism and the Struggle over Comprehensive Immigration Reform",
+    publisher: "Rowman & Littlefield",
+    description: "This book brings together the voices of Latino/a, African American, Asian American, Native American, and Euro-American scholars to produce a dialogue of public theology: how faith-communities, divided by race, class, ethnicity, and gender, can find a common ground for life together. ",
+    link: "https://www.bloomsbury.com/us/wading-through-many-voices-9781442205833/",
+    "book-title": "Wading Through Many Voices: Toward A Theology of Public Conversation",
+    author: "Harold Recinos, ed.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2010",
+    title: "Campaigning for Justice: Religious and Legal Activism in Challenging Illegal Immigration as a Social Problem in the U.S.",
+    publisher: "Routledge",
+    description: "Although students and scholars of social problems have often acknowledged the role of religion, no thorough examinations of the relation between the two have emerged. This volume fills this gap by providing a definitive work on the role of religion in assessing, constructing, and solving social problems.",
+    link: "https://doi.org/10.4324/9780203835104",
+    "book-title": "Religion & Social Problems",
+    author: "Titus Hjelm, ed.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2010",
+    title: "Latino Pentecostal Healing in the North American Borderlands",
+    publisher: "Oxford University Press",
+    description: "Pentecostal and Charismatic Christianity is a global phenomenon that comprises a quarter of the world's two billion Christians and is growing rapidly. This volume reveals that the primary appeal of pentecostalism worldwide is as a religion of healing.",
+    link: "https://global.oup.com/academic/product/global-pentecostal-and-charismatic-healing-9780195393415?cc=us&lang=en&",
+    "book-title": "Global Pentecostal and 	Charismatic Healing",
+    author: "Candy Gunther Brown ed.",
+  },
+  {
+    type: "Major Introduction",
+    year: "2009",
+    title: "Religion, Race, and the 2008 Election",
+    publisher: "Rowman & Littlefield",
+    description: "The role that race and religion play in American presidential elections is attracting national attention like never before. The 2008 presidential candidates reached out to an unprecedented number of racial and religious voting constituencies including African Americans, Latinos, Muslims, Mainline Protestants, Catholics, Evangelicals, Jews, women, the non-religious, and more. This book focuses on the roles of these racial and religious groups in presidential elections over the last forty years, and in elections since 2000 in particular. ",
+    link: "https://www.bloomsbury.com/us/religion-race-and-the-american-presidency-9780742563483/",
+    "book-title": "Religion, Race, and the American 	Presidency, 2nd and Paperback Editions",
+    author: "Gastón Espinosa, ed.",
+  },
+  {
+    type: "Major Introduction",
+    year: "2009",
+    title: "Les Latinos et l'élection présidentielle de 2008 aux Etats-Unis",
+    publisher: "Presses de l'Institut des Amériques",
+    description: "Ce colloque se propose d'examiner les mutations religieuses intervenues depuis le milieu du XXe siècle dans les Amériques, d'une part en croisant les approches disciplinaires (histoire, sociologie, anthropologie, science politique), d'autre part en mettant l'accent sur la comparaison et sur la circulation des pratiques et des modèles religieux. Les travaux seront organisés autour de trois thèmes principaux: la fragmentation croissante du champ religieux et l'émergence de logiques concurrentielles; les dimensions identitaires du religieux; le relation entre le religieux et le politique.",
+    link: "https://calenda.org/193727?lang=pt",
+    "book-title": "Religions des Amériques du milieu du xxe siècle à nos jours: Un demi-siècle d'effervescence et de recompositions",
+    author: "Nathalie Caron et al, eds.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2009",
+    title: "Religion and the Presidency of William Jefferson Clinton",
+    publisher: "Columbia University Press",
+    description: "This book challenges the idea that the mixing of religion and presidential politics is a new phenomenon. It explores how presidents have drawn on their religious upbringing, rhetoric, ideas, and beliefs to promote their domestic and foreign policies to the nation.",
+    link: "https://cup.columbia.edu/book/religion-and-the-american-presidency/9780231143325/",
+    "book-title": "Religion and the American Presidency George Washington to George W. Bush with Commentary and Primary Sources",
+    author: "Gastón Espinosa, ed.",
+  },
+  {
+    type: "Major Conclusion",
+    year: "2009",
+    title: "Conclusion",
+    publisher: "Columbia University Press",
+    description: "This book challenges the idea that the mixing of religion and presidential politics is a new phenomenon. It explores how presidents have drawn on their religious upbringing, rhetoric, ideas, and beliefs to promote their domestic and foreign policies to the nation.",
+    link: "https://cup.columbia.edu/book/religion-and-the-american-presidency/9780231143325/",
+    "book-title": "Religion and the American Presidency George Washington to George W. Bush with Commentary and Primary Sources",
+    author: "Gastón Espinosa, ed.",
+  },
+  {
+    type: "Major Introduction",
+    year: "2009",
+    title: "Introduction",
+    publisher: "Columbia University Press",
+    description: "This book challenges the idea that the mixing of religion and presidential politics is a new phenomenon. It explores how presidents have drawn on their religious upbringing, rhetoric, ideas, and beliefs to promote their domestic and foreign policies to the nation.",
+    link: "https://cup.columbia.edu/book/religion-and-the-american-presidency/9780231143325/",
+    "book-title": "Religion and the American Presidency George Washington to George W. Bush with Commentary and Primary Sources",
+    author: "Gastón Espinosa, ed.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2008",
+    title: "Latinos, Religion, and the American Presidency",
+    publisher: "Rowman & Littlefield",
+    description: "The role that race and religion play in American presidential elections is attracting national attention like never before. The 2008 presidential candidates reached out to an unprecedented number of racial and religious voting constituencies including African Americans, Latinos, Muslims, Mainline Protestants, Catholics, Evangelicals, Jews, women, the non-religious, and more. This book focuses on the roles of these racial and religious groups in presidential elections over the last forty years, and in elections since 2000 in particular.",
+    link: "https://www.bloomsbury.com/us/religion-race-and-the-american-presidency-9780742563483/",
+    "book-title": "Religion, Race, and the American Presidency",
+    author: "Gastón Espinosa, ed.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2008",
+    title: "History and Theory in the Study of Mexican American Religions",
+    publisher: "Duke University Press",
+    description: "This collection presents a rich, multidisciplinary inquiry into the role of religion in the Mexican American community. Breaking new ground by analyzing the influence of religion on Mexican American literature, art, activism, and popular culture, it makes the case for the establishment of Mexican American religious studies as a distinct, recognized field of scholarly inquiry. Scholars of religion, Latin American, and Chicano/a studies as well as of sociology, anthropology, and literary and performance studies, address several broad themes.",
+    link: "https://www.dukeupress.edu/mexican-american-religions",
+    "book-title": "Mexican American Religions: Spirituality, Activism, & Culture ",
+    author: "Gastón Espinosa & Mario T. García, eds.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2008",
+    title: "Mexican Madonna: Selena and the Politics of Cultural Redemption",
+    publisher: "Duke University Press",
+    description: "This collection presents a rich, multidisciplinary inquiry into the role of religion in the Mexican American community. Breaking new ground by analyzing the influence of religion on Mexican American literature, art, activism, and popular culture, it makes the case for the establishment of Mexican American religious studies as a distinct, recognized field of scholarly inquiry. Scholars of religion, Latin American, and Chicano/a studies as well as of sociology, anthropology, and literary and performance studies, address several broad themes.",
+    link: "https://www.dukeupress.edu/mexican-american-religions",
+    "book-title": "Mexican American Religions: Spirituality, Activism, & Culture ",
+    author: "Gastón Espinosa & Mario T. García, eds.",
+  },
+  {
+    type: "Book Chapter",
+    year: "2008",
+    title: "Brown Moses: Francisco Olazábal and Mexican American Pentecostal Healing in the Borderlands",
+    publisher: "Duke University Press",
+    description: "This collection presents a rich, multidisciplinary inquiry into the role of religion in the Mexican American community. Breaking new ground by analyzing the influence of religion on Mexican American literature, art, activism, and popular culture, it makes the case for the establishment of Mexican American religious studies as a distinct, recognized field of scholarly inquiry. Scholars of religion, Latin American, and Chicano/a studies as well as of sociology, anthropology, and literary and performance studies, address several broad themes.",
+    link: "https://www.dukeupress.edu/mexican-american-religions",
+    "book-title": "Mexican American Religions: Spirituality, Activism, & Culture ",
+    author: "Gastón Espinosa & Mario T. García, eds.",
   },
   {
     type: "",
@@ -350,6 +563,8 @@ const otherPublications = [
     publisher: "",
     description: "",
     link: "",
+    "book-title": "",
+    author: "",
   },
   {
     type: "",
@@ -358,6 +573,8 @@ const otherPublications = [
     publisher: "",
     description: "",
     link: "",
+    "book-title": "",
+    author: "",
   },
   {
     type: "",
@@ -366,6 +583,8 @@ const otherPublications = [
     publisher: "",
     description: "",
     link: "",
+    "book-title": "",
+    author: "",
   },
   {
     type: "",
@@ -374,6 +593,8 @@ const otherPublications = [
     publisher: "",
     description: "",
     link: "",
+    "book-title": "",
+    author: "",
   },
   {
     type: "",
@@ -382,6 +603,18 @@ const otherPublications = [
     publisher: "",
     description: "",
     link: "",
+    "book-title": "",
+    author: "",
+  },
+  {
+    type: "",
+    year: "",
+    title: "",
+    publisher: "",
+    description: "",
+    link: "",
+    "book-title": "",
+    author: "",
   },
 ];
 
@@ -486,6 +719,8 @@ const Publications = () => {
     return matchesSearch([
       pub.title,
       pub.type,
+      pub["book-title"],
+      pub.author,
       pub.publisher,
       pub.year,
       pub.description,
@@ -678,6 +913,13 @@ const Publications = () => {
                     <p className="text-sm text-body/80 font-body italic mb-3">
                       {pub.publisher}
                     </p>
+                    {(pub.type === "Book Chapter" || pub.type === "Major Introduction" || pub.type === "Major Conclusion") && (pub["book-title"] || pub.author) && (
+                      <p className="text-sm text-body/80 font-body mb-3">
+                        {pub["book-title"] && <span>In: {pub["book-title"]}</span>}
+                        {pub["book-title"] && pub.author && <span> • </span>}
+                        {pub.author && <span>Author: {pub.author}</span>}
+                      </p>
+                    )}
                     <p className="text-body font-body leading-relaxed mb-3">
                       {pub.description}
                     </p>

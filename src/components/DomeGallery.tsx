@@ -206,14 +206,6 @@ export default function DomeGallery({
     }, 400);
     return () => clearInterval(interval);
   }, [isReady]);
-
-  // Give the gallery exactly 2.5 seconds to construct itself and load images behind the scenes
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsReady(true);
-    }, 2500);
-    return () => clearTimeout(timer);
-  }, []);
   // ---------------------
 
   const rootRef = useRef<HTMLDivElement>(null);
@@ -258,6 +250,45 @@ export default function DomeGallery({
   }, []);
 
   const items = useMemo(() => buildItems(images, segments), [images, segments]);
+  const imageSources = useMemo(() => {
+    const unique = new Set(items.map((item) => item.src).filter(Boolean));
+    return Array.from(unique);
+  }, [items]);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    const preloadImage = (src: string) =>
+      new Promise<void>((resolve) => {
+        const img = new Image();
+        let settled = false;
+
+        const finish = () => {
+          if (settled) return;
+          settled = true;
+          resolve();
+        };
+
+        img.onload = finish;
+        img.onerror = finish;
+        img.src = src;
+        if (img.complete) finish();
+      });
+
+    setIsReady(false);
+    if (imageSources.length === 0) {
+      setIsReady(true);
+      return;
+    }
+
+    Promise.all(imageSources.map(preloadImage)).then(() => {
+      if (!cancelled) setIsReady(true);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [imageSources]);
 
   const applyTransform = useCallback((xDeg: number, yDeg: number) => {
     const el = sphereRef.current;

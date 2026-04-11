@@ -15,7 +15,7 @@
     --popover: 40 30% 98%;
     --popover-foreground: 20 15% 15%;
 
-    --primary: 350 100% 30%;
+    --primary: 350 69% 32%;
     --primary-foreground: 40 33% 96%;
 
     --secondary: 35 25% 88%;
@@ -24,7 +24,7 @@
     --muted: 35 20% 92%;
     --muted-foreground: 20 10% 45%;
 
-    --accent: 350 100% 30%;
+    --accent: 350 69% 32%;
     --accent-foreground: 40 33% 96%;
 
     --destructive: 0 84.2% 60.2%;
@@ -32,7 +32,7 @@
 
     --border: 35 20% 85%;
     --input: 35 20% 85%;
-    --ring: 350 100% 30%;
+    --ring: 350 69% 32%;
 
     --radius: 0.375rem;
 
@@ -47,7 +47,7 @@
     --surface-warm: 38 35% 94%;
     --surface-paper: 42 40% 97%;
     
-    --accent-burgundy: 350 100% 30%;
+    --accent-burgundy: 350 69% 32%;
     --accent-burgundy-light: 350 40% 45%;
     --accent-gold: 38 65% 50%;
     

@@ -1,59 +1,49 @@
 // src/components/Hero.tsx
-import { Link } from "react-router-dom";
-import DomeGallery from "./DomeGallery";
+import professorPortrait from "@/assets/hero_png.svg";
 
 const Hero = () => {
+  const handleExploreClick = () => {
+    const next = document.getElementById("wordcloud");
+    if (next) next.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <section id="hero" className="relative h-screen w-full overflow-hidden bg-[#060010]">
-      {/* Background Gallery */}
-      <div className="absolute inset-0 z-0">
-        <DomeGallery
-          fit={0.8}
-          minRadius={850}
-          maxVerticalRotationDeg={0}
-          segments={30}
-          dragDampening={2}
-          grayscale={false}
-          autoRotate={true}
-          autoRotateSpeed={0.05}
-          enlargePosition="right" // <-- Instructs the image to open on the right
+    <section
+      id="hero"
+      className="relative flex h-screen w-full overflow-hidden bg-background"
+    >
+      {/* Right: Professor portrait (transparent SVG) */}
+      <div className="hidden md:block absolute right-[5%] bottom-0 h-full w-[52%] lg:w-[55%]">
+        <div className="absolute inset-y-0 left-0 w-32 z-10 bg-gradient-to-r from-background to-transparent pointer-events-none" />
+        <img
+          src={professorPortrait}
+          alt="Dr. Gastón Espinosa"
+          className="absolute inset-0 w-full h-full object-contain object-right-bottom"
         />
       </div>
 
-      {/* Foreground Text Overlay */}
-      <div className="absolute inset-y-0 left-0 z-10 flex items-center pl-6 md:pl-16 lg:pl-32 pointer-events-none w-full max-w-5xl">
-        <div className="pointer-events-auto bg-black/50 backdrop-blur-md p-8 md:p-12 rounded-3xl border border-white/10 shadow-2xl max-w-3xl">
-          <p className="text-caption font-body text-sm md:text-base tracking-widest uppercase mb-4 text-white/90 animate-fade-in-up">
-            Arthur V. Stoughton Professor of Religious Studies
-          </p>
-            <h1
-            className="text-5xl sm:text-6xl md:text-8xl lg:text-[8rem] font-thin leading-none mb-6 text-white animate-fade-in-up"
-            style={{ fontFamily: "Times New Roman, Times, serif" }}
-            >
-            Dr. Gastón
-            <br />
-            <span
-              className="text-primary drop-shadow-md"
-              style={{ fontFamily: "Times New Roman, Times, serif" }}
-            >
-              Espinosa
-            </span>
-            </h1>
-          <div className="flex flex-wrap gap-4 mt-8 animate-fade-in-delay-1">
-            <Link
-              to="/research"
-              className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground font-body text-sm font-medium rounded-sm hover:bg-primary/90 transition-colors shadow-lg"
-            >
-              Explore Research
-            </Link>
-            <Link
-              to="/contact"
-              className="inline-flex items-center px-6 py-3 border border-white/50 text-white font-body text-sm font-medium rounded-sm hover:bg-white hover:text-black transition-colors backdrop-blur-sm bg-black/20"
-            >
-              Get in Touch
-            </Link>
-          </div>
-        </div>
+      {/* Left: Text content */}
+      <div className="relative z-10 flex flex-col justify-center pl-20 md:pl-32 lg:pl-48 pr-8 w-full md:w-1/2 lg:w-[50%]">
+        <h1 className="font-heading text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.95] text-foreground font-normal mb-4">
+          Discover
+        </h1>
+        <h1 className="font-heading text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.95] text-primary font-normal mb-8">
+          Dr. Gastón
+          <br />
+          Espinosa
+        </h1>
+        <p className="font-body text-xs md:text-sm tracking-widest uppercase text-foreground/70 leading-relaxed max-w-xs">
+          Arthur V. Stoughton Professor of Religious Studies
+          <br />
+          at Claremont McKenna College
+        </p>
+
+        <button
+          onClick={handleExploreClick}
+          className="mt-16 self-start font-heading text-primary text-lg md:text-xl hover:opacity-70 transition-opacity cursor-pointer"
+        >
+          Explore ↴
+        </button>
       </div>
     </section>
   );

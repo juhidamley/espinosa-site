@@ -44,7 +44,7 @@ const Header = () => {
         <Link
           to="/"
           className={`font-heading text-xl font-semibold transition-colors hover:text-primary ${
-            isTransparentOnHome ? "text-white" : "text-display"
+            isTransparentOnHome ? "text-primary" : "text-display"
           }`}
         >
           Dr. Gastón Espinosa
@@ -56,7 +56,7 @@ const Header = () => {
           aria-expanded={mobileMenuOpen}
           className={`md:hidden inline-flex h-10 w-10 items-center justify-center rounded border transition-colors ${
             isTransparentOnHome
-              ? "border-white/40 text-white hover:bg-white/10"
+              ? "border-border text-display hover:bg-muted"
               : "border-border text-display hover:bg-muted"
           }`}
           onClick={() => setMobileMenuOpen((prev) => !prev)}
@@ -89,8 +89,6 @@ const Header = () => {
                 className={`transition-colors relative group ${
                   isActive(item.path)
                     ? "text-primary"
-                    : isTransparentOnHome
-                    ? "text-white hover:text-primary"
                     : "text-body hover:text-primary"
                 }`}
               >

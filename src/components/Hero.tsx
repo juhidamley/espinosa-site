@@ -24,10 +24,10 @@ const Hero = () => {
 
       {/* Left: Text content */}
       <div className="relative z-10 flex flex-col justify-center pl-20 md:pl-32 lg:pl-48 pr-8 w-full md:w-1/2 lg:w-[50%]">
-        <h1 className="font-heading text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.95] text-foreground font-normal mb-4">
+        <h1 className="font-heading text-[clamp(4.5rem,9vw,10rem)] leading-[0.95] text-foreground font-normal mb-4">
           Discover
         </h1>
-        <h1 className="font-heading text-[clamp(3.5rem,7vw,7.5rem)] leading-[0.95] text-primary font-normal mb-8">
+        <h1 className="font-heading text-[clamp(4.5rem,9vw,10rem)] leading-[0.95] text-primary font-normal mb-8">
           Dr. Gastón
           <br />
           Espinosa

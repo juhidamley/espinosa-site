@@ -13,19 +13,25 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-6">
             <a
-              href="#"
+              href="https://independent.academia.edu/GastonEspinosa"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-primary-foreground/70 hover:text-primary-foreground font-body text-sm transition-colors"
             >
               Academia.edu
             </a>
             <a
-              href="#"
+              href="https://www.researchgate.net/scientific-contributions/Gaston-Espinosa-2196223125"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-primary-foreground/70 hover:text-primary-foreground font-body text-sm transition-colors"
             >
-              Google Scholar
+              Research Gate
             </a>
             <a
-              href="#"
+              href="https://orcid.org/0009-0004-3796-1304"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-primary-foreground/70 hover:text-primary-foreground font-body text-sm transition-colors"
             >
               ORCID

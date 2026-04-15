@@ -71,6 +71,20 @@ export default function Gallery() {
   const oneSetWidthRef = useRef(0);
   const resumeTimeoutRef = useRef<number>();
 
+  const recomputeMetrics = useCallback(() => {
+    const track = trackRef.current;
+    if (!track) return 0;
+
+    const oneSet = track.scrollWidth / 3;
+    if (!Number.isFinite(oneSet) || oneSet <= 0) return 0;
+
+    oneSetWidthRef.current = oneSet;
+    offsetRef.current = ((offsetRef.current % oneSet) + oneSet) % oneSet;
+    track.style.transform = `translateX(-${offsetRef.current}px)`;
+
+    return oneSet;
+  }, []);
+
   // Keep refs in sync with state
   useEffect(() => { lightboxRef.current = lightbox; }, [lightbox]);
 
@@ -78,24 +92,41 @@ export default function Gallery() {
     if (!pausedRef.current && lightboxRef.current === null) {
       const track = trackRef.current;
       if (track) {
-        // Compute one-set width lazily
-        if (oneSetWidthRef.current === 0) {
-          oneSetWidthRef.current = track.scrollWidth / 3;
-        }
-        if (oneSetWidthRef.current <= 0) {
+        const oneSet = oneSetWidthRef.current || recomputeMetrics();
+        if (oneSet <= 0) {
           rafRef.current = requestAnimationFrame(tick);
           return;
         }
         offsetRef.current += SPEED;
         // When we've scrolled one full set, snap back silently
-        if (offsetRef.current >= oneSetWidthRef.current) {
-          offsetRef.current -= oneSetWidthRef.current;
+        if (offsetRef.current >= oneSet) {
+          offsetRef.current -= oneSet;
         }
         track.style.transform = `translateX(-${offsetRef.current}px)`;
       }
     }
     rafRef.current = requestAnimationFrame(tick);
-  }, []);
+  }, [recomputeMetrics]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    recomputeMetrics();
+
+    const observer = new ResizeObserver(() => {
+      recomputeMetrics();
+    });
+    observer.observe(track);
+
+    const handleResize = () => recomputeMetrics();
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [recomputeMetrics]);
 
   useEffect(() => {
     rafRef.current = requestAnimationFrame(tick);
@@ -109,17 +140,21 @@ export default function Gallery() {
     pausedRef.current = true;
     if (resumeTimeoutRef.current) window.clearTimeout(resumeTimeoutRef.current);
 
-    // Shift by ~280px (approx one image slot)
-    const step = 280 * direction;
     const track = trackRef.current;
     if (!track) return;
-    const oneSet = oneSetWidthRef.current || track.scrollWidth / 3;
+    const oneSet = oneSetWidthRef.current || recomputeMetrics();
     if (!Number.isFinite(oneSet) || oneSet <= 0) {
       resumeTimeoutRef.current = window.setTimeout(() => {
         pausedRef.current = false;
       }, 180);
       return;
     }
+
+    const firstSlot = track.firstElementChild as HTMLElement | null;
+    const trackStyle = window.getComputedStyle(track);
+    const gap = parseFloat(trackStyle.columnGap || trackStyle.gap || "0") || 0;
+    const measuredStep = firstSlot ? firstSlot.getBoundingClientRect().width + gap : 280;
+    const step = measuredStep * direction;
 
     let next = offsetRef.current + step;
     // Keep within bounds

@@ -69,6 +69,7 @@ export default function Gallery() {
   const pausedRef = useRef(false);
   const lightboxRef = useRef<number | null>(null);
   const oneSetWidthRef = useRef(0);
+  const resumeTimeoutRef = useRef<number>();
 
   // Keep refs in sync with state
   useEffect(() => { lightboxRef.current = lightbox; }, [lightbox]);
@@ -80,6 +81,10 @@ export default function Gallery() {
         // Compute one-set width lazily
         if (oneSetWidthRef.current === 0) {
           oneSetWidthRef.current = track.scrollWidth / 3;
+        }
+        if (oneSetWidthRef.current <= 0) {
+          rafRef.current = requestAnimationFrame(tick);
+          return;
         }
         offsetRef.current += SPEED;
         // When we've scrolled one full set, snap back silently
@@ -94,20 +99,37 @@ export default function Gallery() {
 
   useEffect(() => {
     rafRef.current = requestAnimationFrame(tick);
-    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current); };
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (resumeTimeoutRef.current) window.clearTimeout(resumeTimeoutRef.current);
+    };
   }, [tick]);
 
   const skip = (direction: 1 | -1) => {
+    pausedRef.current = true;
+    if (resumeTimeoutRef.current) window.clearTimeout(resumeTimeoutRef.current);
+
     // Shift by ~280px (approx one image slot)
     const step = 280 * direction;
     const track = trackRef.current;
     if (!track) return;
     const oneSet = oneSetWidthRef.current || track.scrollWidth / 3;
+    if (!Number.isFinite(oneSet) || oneSet <= 0) {
+      resumeTimeoutRef.current = window.setTimeout(() => {
+        pausedRef.current = false;
+      }, 180);
+      return;
+    }
+
     let next = offsetRef.current + step;
     // Keep within bounds
     next = ((next % oneSet) + oneSet) % oneSet;
     offsetRef.current = next;
     track.style.transform = `translateX(-${next}px)`;
+
+    resumeTimeoutRef.current = window.setTimeout(() => {
+      pausedRef.current = false;
+    }, 180);
   };
 
   // Keyboard nav

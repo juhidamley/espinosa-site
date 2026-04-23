@@ -36,6 +36,10 @@ const CUSTOM_SUBTITLES: Record<string, string> = {
   "War in Ukraine Image 2": "War in Ukraine Student Panel",
   "War in Ukraine Student Panel E": "War in Ukraine Student Panel",
   "War in Ukraine Team Photo copy": "War in Ukraine Team",
+  "Gaston Black Coat & Tie, 3.25.26":"Prof. Espinosa",
+  "Gaston Blue Suit & Tie, 3.25.26" : "Prof. Espinosa",
+  "Gaston Harvard Sweater, 3.25.26" : "Prof. Espinosa repping his alma mater",
+  "Gaston Leather Jacket, 3.25.26" : "Prof. Espinosa"
 };
 
 const imageModules = import.meta.glob(
@@ -56,12 +60,20 @@ const images: GalleryImage[] = Object.keys(imageModules).map((path) => {
 
 const SPEED = 0.35; // px per frame — calm drift
 
-// Triple for seamless loop: we scroll through the middle set, reset when done
-const looped = [...images, ...images, ...images];
+// Utility: Fisher-Yates shuffle
+function shuffleArray<T>(arr: T[]) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
 export default function Gallery() {
   const [lightbox, setLightbox] = useState<number | null>(null);
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const [shuffledImages, setShuffledImages] = useState<GalleryImage[]>(() => shuffleArray(images));
 
   const trackRef = useRef<HTMLDivElement>(null);
   const offsetRef = useRef(0);
@@ -87,6 +99,14 @@ export default function Gallery() {
 
   // Keep refs in sync with state
   useEffect(() => { lightboxRef.current = lightbox; }, [lightbox]);
+
+  // expose a simple shuffle control if needed
+  const shuffle = useCallback(() => {
+    setShuffledImages((prev) => shuffleArray(prev));
+    // reset offsets so layout recomputes cleanly
+    offsetRef.current = 0;
+    recomputeMetrics();
+  }, [recomputeMetrics]);
 
   const tick = useCallback(() => {
     if (!pausedRef.current && lightboxRef.current === null) {
@@ -171,8 +191,8 @@ export default function Gallery() {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (lightbox !== null) {
-        if (e.key === "ArrowLeft") setLightbox((i) => ((i! - 1 + images.length) % images.length));
-        if (e.key === "ArrowRight") setLightbox((i) => ((i! + 1) % images.length));
+        if (e.key === "ArrowLeft") setLightbox((i) => ((i! - 1 + shuffledImages.length) % shuffledImages.length));
+        if (e.key === "ArrowRight") setLightbox((i) => ((i! + 1) % shuffledImages.length));
         if (e.key === "Escape") setLightbox(null);
       } else {
         if (e.key === "ArrowLeft") skip(-1);
@@ -181,9 +201,9 @@ export default function Gallery() {
     };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
-  }, [lightbox]);
+  }, [lightbox, shuffledImages.length]);
 
-  if (images.length === 0) return null;
+  if (shuffledImages.length === 0) return null;
 
   return (
     <>
@@ -210,8 +230,8 @@ export default function Gallery() {
               className="flex h-full items-center gap-4 will-change-transform"
               style={{ width: "max-content" }}
             >
-              {looped.map((img, i) => {
-                const origIdx = i % images.length;
+              {[...shuffledImages, ...shuffledImages, ...shuffledImages].map((img, i) => {
+                const origIdx = i % shuffledImages.length;
                 return (
                   <div
                     key={i}
@@ -243,7 +263,7 @@ export default function Gallery() {
 
         {/* Caption — shows on hover */}
         <p className="mt-4 font-body text-sm text-center text-foreground/60 max-w-md min-h-[1.25rem] px-4 transition-opacity duration-300">
-          {hoveredIdx !== null ? images[hoveredIdx % images.length].subtitle : ""}
+          {hoveredIdx !== null ? shuffledImages[hoveredIdx % shuffledImages.length].subtitle : ""}
         </p>
       </div>
 
@@ -254,7 +274,7 @@ export default function Gallery() {
           onClick={() => setLightbox(null)}
         >
           <button
-            onClick={(e) => { e.stopPropagation(); setLightbox((i) => ((i! - 1 + images.length) % images.length)); }}
+            onClick={(e) => { e.stopPropagation(); setLightbox((i) => ((i! - 1 + shuffledImages.length) % shuffledImages.length)); }}
             aria-label="Previous"
             className="absolute left-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white text-2xl transition-colors"
           >
@@ -262,20 +282,20 @@ export default function Gallery() {
           </button>
 
           <img
-            src={images[lightbox].src}
-            alt={images[lightbox].alt}
+            src={shuffledImages[lightbox].src}
+            alt={shuffledImages[lightbox].alt}
             className="max-h-[80vh] max-w-[85vw] object-contain rounded-sm shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           />
 
-          {images[lightbox].subtitle && (
-            <p className="mt-4 font-body text-sm text-white/70 text-center max-w-lg px-6">
-              {images[lightbox].subtitle}
-            </p>
-          )}
+            {shuffledImages[lightbox].subtitle && (
+              <p className="mt-4 font-body text-sm text-white/70 text-center max-w-lg px-6">
+                {shuffledImages[lightbox].subtitle}
+              </p>
+            )}
 
           <button
-            onClick={(e) => { e.stopPropagation(); setLightbox((i) => ((i! + 1) % images.length)); }}
+            onClick={(e) => { e.stopPropagation(); setLightbox((i) => ((i! + 1) % shuffledImages.length)); }}
             aria-label="Next"
             className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center justify-center w-10 h-10 rounded-full bg-white/10 hover:bg-white/25 text-white text-2xl transition-colors"
           >

@@ -28,7 +28,8 @@ const Hero = () => {
           Discover
         </h1>
         <h1 className="font-heading text-[clamp(4.5rem,8vw,10rem)] leading-[0.95] text-primary font-semibold mb-8">
-          Gastón Espinosa, Ph. D.
+          Gastón Espinosa,{"\u00A0"}
+          <span className="block sm:inline">Ph.D.</span>
         </h1>
         <p className="font-body text-xs md:text-sm tracking-widest uppercase text-foreground/70 leading-relaxed max-w-xs">
           Arthur V. Stoughton Professor of Religious Studies

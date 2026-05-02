@@ -303,7 +303,7 @@ const Leadership = () => {
               Leadership
             </h1>
             <p className="font-body max-w-3xl text-foreground/70">
-              Two areas of leadership highlight Professor Espinosa's work in the profession and in institutional life.
+              Description
             </p>
           </div>
 
